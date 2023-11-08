@@ -4,5 +4,6 @@ export interface Product {
     description: string,
     price: string,
     brand: string,
-    category: string
+    category: string,
+    images: string
 }
