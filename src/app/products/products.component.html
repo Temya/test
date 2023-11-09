@@ -1,14 +1,25 @@
 <table>
+        <input type="text" [formControl]="controlSearch"> Search
     <thead>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Gender</th>
-        <th>BirthDate</th>
-        <th>Phone Number</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>IsDone</th>
+        <th></th>
     </thead>
     <tbody>
         <tr *ngFor="let item of products">
-            <td><img alt="failed" src={{item.images}}></td>
+            <td>{{item.title}}</td>
+            <td>{{item.description}}</td>
+            <td>{{item.price}}$</td>
+            <td (click)="changeText(text, item.id)">{{text}}</td>
+            <td>Edit</td>
         </tr>
     </tbody>
 </table>
+<div class="buttn">
+    <button (click)="skipProductDown(page)"><</button>
+    <h3>{{page}}</h3>
+    <button (click)="skipProductUp(page)">></button>
+    <button (click)="addData()">Add</button>
+</div>

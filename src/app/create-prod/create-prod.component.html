@@ -1,0 +1,16 @@
+<div *ngIf="formCreate" class="main" [formGroup]="formCreate">
+        <div class="text">
+            <h1>Title</h1>
+            <input #ch type="text" formControlName="title">
+        </div>
+        <div class="text">
+            <h1>Description</h1>
+            <input type="text" formControlName="description">
+        </div>
+        <div class="text">
+            <h1>Price</h1>
+            <input type="text" formControlName="price">
+        </div>
+    <div>
+        <button>Add</button>
+</div>            

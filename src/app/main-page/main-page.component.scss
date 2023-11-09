@@ -2,12 +2,15 @@
     width: 100%;
     height: 100%;
     display: flex;
+    border: black solid 2px;
 }
 .main {
     width: 100%;
+    margin-right: 10px;
 }
 .list {
 	margin: 0 0 0 25px;
-	padding: 0px 0px 0px 0px;
+	padding: 0px 10px 0px 0px;
 	font-size: 18px;
+    cursor: pointer;
 }

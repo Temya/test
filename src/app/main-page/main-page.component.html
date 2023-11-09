@@ -1,14 +1,16 @@
-<div>
+<div class="second">
     <h2>Список</h2>
     <ol class="list">
-        <li>Products</li>
-        <li>Category</li>
-        <li>Users</li>
+        <li (click)="page('products')">Products</li>
+        <li (click)="page('category')">Category</li>
+        <li (click)="page('users')">Users</li>
     </ol>
 </div>
 <div class="main">
     <h2>Справочник</h2>
-    <app-products></app-products>
-    <app-category></app-category>
-    <app-users></app-users>
+    <app-products *ngIf="pages === 'products'"></app-products>
+    <app-category *ngIf="pages === 'category'"></app-category>
+    <app-users *ngIf="pages === 'users'"></app-users>
+    <app-create-prod></app-create-prod>
+    <app-edit-prod></app-edit-prod>
 </div>

@@ -1,10 +1,9 @@
 import { CommonModule } from "@angular/common";
 import { HttpClientModule } from "@angular/common/http";
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy } from "@angular/core";
-import { Subject, takeUntil } from "rxjs";
-import { BackendService } from "../backend.service";
+import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { CategoryComponent } from "../category/category.component";
-import { UserData } from "../interface/user-data";
+import { CreateProdComponent } from "../create-prod/create-prod.component";
+import { EditProdComponent } from "../edit-prod/edit-prod.component";
 import { ProductsComponent } from "../products/products.component";
 import { UsersComponent } from "../users/users.component";
 
@@ -14,23 +13,24 @@ import { UsersComponent } from "../users/users.component";
     standalone: true,
     templateUrl: "./main-page.component.html",
     styleUrls: ["./main-page.component.scss"],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
         CommonModule,
         ProductsComponent,
         UsersComponent,
         CategoryComponent,
-        HttpClientModule
-    ],
-    changeDetection: ChangeDetectionStrategy.OnPush
+        HttpClientModule,
+        CreateProdComponent,
+        EditProdComponent
+    ]
 })
 export class MainPageComponent {
     
+    public pages = "null";
+
+    public page(str: string): void
+    {
+        this.pages = str;
+    }
 }
 
-// this.service.getProducts$(body)
-//         .pipe(takeUntil(this.unSubscribe$$))
-//         .subscribe((data) => {
-//           this.products = data.products;
-//           productService.saveProducts(this.products);
-//           this.cdr.detectChanges();
-//         });
