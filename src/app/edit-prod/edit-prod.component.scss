@@ -1,0 +1,22 @@
+.main {
+    width: 190px;
+    padding: 10px;
+    border: #ffd300 solid 2px;
+}
+button {
+    width: 50px;
+    height: 30px;
+    text-decoration: none;
+    color: #ffd300;
+    text-align: center;
+    line-height: 20px;
+    display: block;
+    margin: 10px;
+    font: normal 17px arial;
+	border-radius: 10px;
+	cursor: pointer;
+	border: #ffd300 solid 1px;
+}
+button:hover {
+	background-color: #fff;
+}

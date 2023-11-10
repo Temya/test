@@ -32,9 +32,16 @@ export class ProductsComponent {
       limit: this.limit,
       page: this.page
     };
-    service.getProducts$(body)
-    .pipe(takeUntil(this.unSubscribe$$))
-    .subscribe((date) => {this.products = date.products; console.log(this.products); this.cdr.detectChanges();});
+    if (!service.products.length)
+    {
+      service.getProducts$(body)
+      .pipe(takeUntil(this.unSubscribe$$))
+      .subscribe((date) => {this.products = date.products; service.saveProd(this.products); this.cdr.detectChanges();});
+    }
+    else {
+      this.products = service.products;
+    }
+    
     this.controlSearch.valueChanges
       .pipe(takeUntil(this.unSubscribe$$))
       .subscribe((val) => service.gerSearchProduct$(val as string).subscribe((data) => {
@@ -79,6 +86,11 @@ export class ProductsComponent {
   }
 
   public addData(): void{
-    this.products.push();
+    this.service.pages = "create";
+  }
+
+  public editData(id: number): void{
+    this.service.pages = "edit";
+    this.service.id = id;
   }
 }

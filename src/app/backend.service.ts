@@ -12,13 +12,16 @@ import { Users } from "./interface/users";
 export class BackendService {
 
   public products: Product[] = [];
+  public product?: Product;
+  public pages = "null";
+  public id?: number;
 
   constructor(private readonly http: HttpClient) { }
 
   public getProducts$(val: PaginationData): Observable<Products> {
     if (val.limit === "0" || val.limit === "")
       { val.limit = "10";}
-    const url = `/api/products?limit=${val.limit}&skip=${val.page}&select=title,description,price,brand,category`;
+    const url = `/api/products?limit=${val.limit}&skip=${val.page}&select=title,description,price,category,brand`;
     return this.http.get<Products>(url, { withCredentials: true });
   }
 
@@ -49,5 +52,18 @@ export class BackendService {
 
   public createProduct(x: Product): void{
     this.products.push(x);
+  }
+
+  public getProductEdit(id: number): Product {
+    console.log(this.products);
+    console.log(id);
+    return this.products.find((prod) => prod.id === id) as Product;
+  }
+
+  public updateProduct(event: Product, id: number): void{
+    this.products = this.products.map((product) => {
+      if (product.id === id) return event;
+        return product;
+    });
   }
 }

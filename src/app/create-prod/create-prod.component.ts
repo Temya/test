@@ -19,24 +19,22 @@ export class CreateProdComponent implements OnInit{
 
   constructor(private readonly router: Router, private readonly fb: FormBuilder, private service: BackendService){}
 
-  public addProduct(): void{
-    if (this.formCreate?.valid){
-      this.product = this.formCreate?.getRawValue();
-      this.service.createProduct(this.product as Product);
-      console.log("Do" + this.service.getProducts());
-      this.router.navigateByUrl("products");
-    }
-  }
-
   public ngOnInit(): void {
     this.formCreate = this.fb.group({
       id: this.fb.control(this.service.getProducts().length + 1),
       title: this.fb.control("", Validators.required),
       description: this.fb.control("", Validators.required),
       price: this.fb.control("", Validators.required),
-      brand: this.fb.control("", Validators.required),
-      category: this.fb.control("", Validators.required)
     }); 
+  }
+
+  public done(): void{
+    if (this.formCreate?.valid){
+      this.product = this.formCreate?.getRawValue();
+      this.service.createProduct(this.product as Product);
+      console.log(this.service.getProducts());
+      this.service.pages = "products";
+    }
   }
 
 }

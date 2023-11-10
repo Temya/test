@@ -8,9 +8,9 @@
 </div>
 <div class="main">
     <h2>Справочник</h2>
-    <app-products *ngIf="pages === 'products'"></app-products>
-    <app-category *ngIf="pages === 'category'"></app-category>
-    <app-users *ngIf="pages === 'users'"></app-users>
-    <app-create-prod></app-create-prod>
-    <app-edit-prod></app-edit-prod>
+    <app-products *ngIf="service.pages === 'products'"></app-products>
+    <app-category *ngIf="service.pages === 'category'"></app-category>
+    <app-users *ngIf="service.pages === 'users'"></app-users>
+    <app-create-prod *ngIf="service.pages === 'create'"></app-create-prod>
+    <app-edit-prod *ngIf="service.pages === 'edit'"></app-edit-prod>
 </div>

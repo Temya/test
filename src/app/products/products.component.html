@@ -1,5 +1,5 @@
 <table>
-        <input type="text" [formControl]="controlSearch"> Search
+    <input type="text" [formControl]="controlSearch"> Search
     <thead>
         <th>Title</th>
         <th>Description</th>
@@ -13,7 +13,7 @@
             <td>{{item.description}}</td>
             <td>{{item.price}}$</td>
             <td (click)="changeText(text, item.id)">{{text}}</td>
-            <td>Edit</td>
+            <button (click)="editData(item.id)">Edit</button>
         </tr>
     </tbody>
 </table>

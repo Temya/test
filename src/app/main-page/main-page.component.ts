@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { HttpClientModule } from "@angular/common/http";
 import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { BackendService } from "../backend.service";
 import { CategoryComponent } from "../category/category.component";
 import { CreateProdComponent } from "../create-prod/create-prod.component";
 import { EditProdComponent } from "../edit-prod/edit-prod.component";
@@ -26,11 +27,13 @@ import { UsersComponent } from "../users/users.component";
 })
 export class MainPageComponent {
     
-    public pages = "null";
+    constructor(public service: BackendService){
+        
+    }
 
     public page(str: string): void
     {
-        this.pages = str;
+        this.service.pages = str;
     }
 }
 

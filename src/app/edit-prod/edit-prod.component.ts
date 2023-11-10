@@ -11,7 +11,7 @@ import { BackendService } from "../backend.service";
   templateUrl: "./edit-prod.component.html",
   styleUrls: ["./edit-prod.component.scss"]
 })
-export class EditProdComponent{
+export class EditProdComponent implements OnInit{
 
   public formEdit?: FormGroup;
 
@@ -20,22 +20,19 @@ export class EditProdComponent{
     private readonly fb: FormBuilder,
     private readonly route: ActivatedRoute){}
 
-  // public saveProduct(): void{
-  //   this.service.updateProduct(this.formEdit?.getRawValue());
-  //   this.router.navigateByUrl("products");
-  // }
+  public saveProduct(): void{
+    this.service.updateProduct(this.formEdit?.getRawValue(), this.service.id as number);
+    this.service.pages = "products";
+  }
   
-  // public ngOnInit(): void {
-  //   const id = parseInt(this.route.snapshot.paramMap.get("id") as string);
-  //   const product = this.service.getProductEdit(id);
-  //       this.formEdit = this.fb.group({
-  //         id: this.fb.control(product.id, Validators.required),
-  //         title: this.fb.control(product.title, Validators.required),
-  //         description: this.fb.control(product.description, Validators.required),
-  //         price: this.fb.control(product.price, Validators.required),
-  //         brand: this.fb.control(product.brand, Validators.required),
-  //         category: this.fb.control(product.category, Validators.required),
-  //       });
-  // }
+  public ngOnInit(): void {
+    const id = this.service.id;
+    const product = this.service.getProductEdit(id as number);
+        this.formEdit = this.fb.group({
+          title: this.fb.control(product?.title, Validators.required),
+          description: this.fb.control(product?.description, Validators.required),
+          price: this.fb.control(product?.price, Validators.required)
+        });
+  }
 
 }
