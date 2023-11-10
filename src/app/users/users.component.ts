@@ -3,6 +3,7 @@ import { ChangeDetectorRef, Component, OnDestroy } from "@angular/core";
 import { FormBuilder, FormControl, ReactiveFormsModule } from "@angular/forms";
 import { Subject, takeUntil } from "rxjs";
 import { BackendService } from "../backend.service";
+import { Active } from "../interface/active";
 import { PaginationData } from "../interface/pagination-data";
 import { UserData } from "../interface/user-data";
 
@@ -18,6 +19,7 @@ export class UsersComponent implements OnDestroy {
   public page = 0;
   public limit = "10";
   public users: UserData[] = [];
+  public active: Active[] = [{ id: 0, name: "+"}, { id: 1, name: "+"}, { id: 2, name: "+"}, { id: 3, name: "+"}, { id: 4, name: "+"}, { id: 5, name: "+"}, { id: 6, name: "+"}, { id: 7, name: "+"}, { id: 8, name: "+"}, { id: 9, name: "+"}];
   public controlSearch = new FormControl("");
   
   private readonly unSubscribe$$ = new Subject<void>();
@@ -74,5 +76,15 @@ export class UsersComponent implements OnDestroy {
         });
         this.page--;
       }    
+    }
+
+    public changeActive(id: number): void{
+      if (this.active[id].name === "+")
+      {
+        this.active[id].name = "-";
+      }
+      else {
+        this.active[id].name = "+";
+      }
     }
 }

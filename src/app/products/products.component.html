@@ -4,7 +4,6 @@
         <th>Title</th>
         <th>Description</th>
         <th>Price</th>
-        <th>IsDone</th>
         <th></th>
     </thead>
     <tbody>
@@ -12,7 +11,6 @@
             <td>{{item.title}}</td>
             <td>{{item.description}}</td>
             <td>{{item.price}}$</td>
-            <td (click)="changeText(text, item.id)">{{text}}</td>
             <button (click)="editData(item.id)">Edit</button>
         </tr>
     </tbody>
