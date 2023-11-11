@@ -20,7 +20,7 @@ export class EditProdComponent implements OnInit{
     private readonly fb: FormBuilder,
     private readonly route: ActivatedRoute){}
 
-  public saveProduct(): void{
+  public saveProduct(): void {
     this.service.updateProduct(this.formEdit?.getRawValue(), this.service.id as number);
     this.service.pages = "products";
   }
@@ -28,11 +28,11 @@ export class EditProdComponent implements OnInit{
   public ngOnInit(): void {
     const id = this.service.id;
     const product = this.service.getProductEdit(id as number);
-        this.formEdit = this.fb.group({
-          title: this.fb.control(product?.title, Validators.required),
-          description: this.fb.control(product?.description, Validators.required),
-          price: this.fb.control(product?.price, Validators.required)
-        });
+    this.formEdit = this.fb.group({
+      title: this.fb.control(product?.title, Validators.required),
+      description: this.fb.control(product?.description, Validators.required),
+      price: this.fb.control(product?.price, Validators.required)
+    });
   }
 
 }

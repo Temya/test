@@ -1,5 +1,5 @@
+<input type="text" [formControl]="controlSearch"> Search
 <table>
-    <input type="text" [formControl]="controlSearch"> Search
     <thead>
         <th>Name</th>
         <th>Age</th>
@@ -15,7 +15,7 @@
             <td>{{item.gender}}</td>
             <td>{{item.birthDate}}</td>
             <td>{{item.phone}}</td>
-            <button (click)="changeActive(item.id - 1)">{{active[item.id - 1].name}}</button>
+            <td class="active" (click)="changeActive(item.id)">{{item.active | active }}</td>
         </tr>
     </tbody>
 </table>

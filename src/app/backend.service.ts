@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { PaginationData } from "./interface/pagination-data";
 import { Product } from "./interface/product";
 import { Products } from "./interface/products";
+import { UserData } from "./interface/user-data";
 import { Users } from "./interface/users";
 
 @Injectable({
@@ -11,6 +12,7 @@ import { Users } from "./interface/users";
 })
 export class BackendService {
 
+  public users: UserData[] = [];
   public products: Product[] = [];
   public product?: Product;
   public pages = "null";
@@ -19,15 +21,15 @@ export class BackendService {
   constructor(private readonly http: HttpClient) { }
 
   public getProducts$(val: PaginationData): Observable<Products> {
-    if (val.limit === "0" || val.limit === "")
-      { val.limit = "10";}
+    if (val.limit === 0 || val.limit === null)
+      { val.limit = 10;}
     const url = `/api/products?limit=${val.limit}&skip=${val.page}&select=title,description,price,category,brand`;
     return this.http.get<Products>(url, { withCredentials: true });
   }
 
   public getUsers$(val: PaginationData): Observable<Users> {
-    if (val.limit === "0" || val.limit === "")
-      { val.limit = "10";}
+    if (val.limit === 0 || val.limit === null)
+      { val.limit = 10;}
     const url = `/api/users?limit=${val.limit}&skip=${val.page}&select=firstName,password,age,phone,birthDate,gender`;
     return this.http.get<Users>(url, { withCredentials: true });
   }
@@ -44,6 +46,10 @@ export class BackendService {
 
   public saveProd(prod: Product[]): void{
     this.products = prod;
+  }
+
+  public saveUsers(users: UserData[]): void{
+    this.users = users;
   }
 
   public getProducts(): Product[]{

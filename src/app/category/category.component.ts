@@ -16,7 +16,7 @@ import { Product } from "../interface/product";
 export class CategoryComponent {
 
   public page = 0;
-  public limit = "10";
+  public limit = 10;
   public products: Product[] = [];
   public controlSearch = new FormControl("");
 
@@ -31,13 +31,17 @@ export class CategoryComponent {
     };
     service.getProducts$(body)
     .pipe(takeUntil(this.unSubscribe$$))
-    .subscribe((date) => {this.products = date.products; console.log(this.products); this.cdr.detectChanges();});
+    .subscribe((data) => {
+      this.products = data.products;
+      console.log(this.products);
+      this.cdr.detectChanges();
+    });
     this.controlSearch.valueChanges
       .pipe(takeUntil(this.unSubscribe$$))
       .subscribe((val) => service.gerSearchProduct$(val as string).subscribe((data) => {
         this.products = data.products;
         this.cdr.detectChanges();
-      }));
+    }));
   }
   
   public skipProductUp(val: number): void{
@@ -45,13 +49,16 @@ export class CategoryComponent {
       limit: this.limit,
       page: this.page
     };
-    body.page = ((val*parseInt(this.limit)) + parseInt(this.limit));
+    body.page = ((val*this.limit) + this.limit);
     this.service.getProducts$(body)
       .subscribe((data) => {
-         this.products = data.products;
-         this.cdr.detectChanges();
+      if (data.products.length){
+        this.products = data.products;
+        this.service.saveProd(this.products);
+        this.page++;
+        this.cdr.detectChanges();
+      }
     });
-    this.page++;
   }
 
   public skipProductDown(val: number): void{
@@ -61,10 +68,11 @@ export class CategoryComponent {
         limit: this.limit,
         page: this.page
       };     
-      body.page = ((val*parseInt(this.limit)) - parseInt(this.limit));
+      body.page = ((val*this.limit) - this.limit);
       this.service.getProducts$(body)
       .subscribe((data) => {
         this.products = data.products;
+        this.service.saveProd(this.products);
         this.cdr.detectChanges();
       });
       this.page--;

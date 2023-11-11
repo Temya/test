@@ -5,5 +5,6 @@ export interface UserData {
     age: number,
     phone: string,
     birthDate: string,
-    gender: string
+    gender: string,
+    active: boolean
 }

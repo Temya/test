@@ -28,8 +28,8 @@ export class CreateProdComponent implements OnInit{
     }); 
   }
 
-  public done(): void{
-    if (this.formCreate?.valid){
+  public done(): void {
+    if (this.formCreate?.valid) {
       this.product = this.formCreate?.getRawValue();
       this.service.createProduct(this.product as Product);
       console.log(this.service.getProducts());

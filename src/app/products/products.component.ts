@@ -16,9 +16,8 @@ import { Product } from "../interface/product";
 export class ProductsComponent {
 
   public products: Product[] = [];
-  public text = "True";
   public page = 0;
-  public limit = "15";
+  public limit = 15;
   public controlSearch = new FormControl("");
 
   private readonly unSubscribe$$ = new Subject<void>();
@@ -36,18 +35,22 @@ export class ProductsComponent {
     {
       service.getProducts$(body)
       .pipe(takeUntil(this.unSubscribe$$))
-      .subscribe((date) => {this.products = date.products; service.saveProd(this.products); this.cdr.detectChanges();});
+      .subscribe((date) => {
+      this.products = date.products;
+      service.saveProd(this.products);
+      this.cdr.detectChanges();
+    });
     }
     else {
       this.products = service.products;
     }
     
     this.controlSearch.valueChanges
-      .pipe(takeUntil(this.unSubscribe$$))
-      .subscribe((val) => service.gerSearchProduct$(val as string).subscribe((data) => {
-        this.products = data.products;
-        this.cdr.detectChanges();
-      }));
+    .pipe(takeUntil(this.unSubscribe$$))
+    .subscribe((val) => service.gerSearchProduct$(val as string).subscribe((data) => {
+      this.products = data.products;
+      this.cdr.detectChanges();
+    }));
   }
 
   public skipProductUp(val: number): void{
@@ -55,13 +58,16 @@ export class ProductsComponent {
       limit: this.limit,
       page: this.page
     };
-    body.page = ((val*parseInt(this.limit)) + parseInt(this.limit));
+    body.page = ((val*this.limit) + this.limit);
     this.service.getProducts$(body)
-      .subscribe((data) => {
-         this.products = data.products;
-         this.cdr.detectChanges();
+    .subscribe((data) => {
+      if (data.products.length){
+        this.products = data.products;
+        this.service.saveProd(this.products);
+        this.page++;
+        this.cdr.detectChanges();
+      }
     });
-    this.page++;
   }
 
   public skipProductDown(val: number): void{
@@ -71,18 +77,15 @@ export class ProductsComponent {
         limit: this.limit,
         page: this.page
       };     
-      body.page = ((val*parseInt(this.limit)) - parseInt(this.limit));
+      body.page = ((val*this.limit) - this.limit);
       this.service.getProducts$(body)
       .subscribe((data) => {
         this.products = data.products;
+        this.service.saveProd(this.products);
         this.cdr.detectChanges();
       });
       this.page--;
     }    
-  }
-
-  public changeText(tx: string, id: number): void{
-    // if (this.products.find((x) => x.id === id))
   }
 
   public addData(): void{
